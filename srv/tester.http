@@ -1,0 +1,94 @@
+###Get the details of service document
+http://localhost:4004/odata/v4/CatalogService/
+
+###Get Service Metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+###Get all the records of Employee
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+###Get data chunk by chunk - pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2
+
+###Get data chunk by chunk - pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=3
+
+###Get the count of records
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/$count
+
+###Single Employee Records by its key
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19807FB
+
+###Filter data by using $filter
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=bankName eq 'My Bank of New York'
+
+###case filtering
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=Contains(nameFirst, 'na')
+
+###post data - save data using service
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+      "nameFirst": "Christiano",
+      "nameMiddle": "",
+      "nameLast": "Ronaldo",
+      "nameInitials": null,
+      "sex": "M",
+      "language": "P",
+      "phoneNumber": null,
+      "email": "christiano@ats.com",
+      "loginName": "RonaldoCH",
+      "Currency_code": "EUR",
+      "salaryAmount": 999999,
+      "accountNumber": "5566778899",
+      "bankId": "26005885",
+      "bankName": "RBS Bank"
+}
+
+###Get the data of new employee - COPY THE ID FROM FIRST CALL
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/f23a7d64-a8f9-478a-81c8-fc6f2acfb35c
+
+###PATCH - used to update data
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/5a41ed43-1ab7-4d9c-be7b-d155de0f7915
+Content-Type: application/json
+
+{
+    "salaryAmount": 10000000
+}
+
+###Delete - Remove from db
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/f23a7d64-a8f9-478a-81c8-fc6f2acfb35c
+
+###Test V2 response
+http://localhost:4004/odata/v2/CatalogService/EmployeeSet
+
+###LazyLoading
+http://localhost:4004/odata/v2/CatalogService/CDSSet('74867AD200E41EDBA5D8B06B26EB4052')?$expand=To_Items
+
+###Get the PO Data
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2A052
+
+###calling the action on Purchase Order
+POST http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2E052/boost
+Content-Type: application/json
+{}
+
+###call the function
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder()
+
+
+###Implementation using generic handler - Fetch Employees Data
+http://localhost:4004/odata/v4/MyService/EmployeeSrv
+
+
+###Test Read only scenario / restrist create for employees
+POST http://localhost:4004/odata/v4/MyService/EmployeeSrv
+Content-Type: application/json
+
+
+{
+    "nameFirst": "Anil",
+    "nameLast": "Kapoor",
+    "loginName": "Zkas"
+}
