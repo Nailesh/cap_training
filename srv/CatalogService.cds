@@ -26,6 +26,13 @@ service CatalogService @(path: 'CatalogService') {
                 end as IconColor: Integer
     }
     actions {
+        //read call to fetch latest data
+        @Common.SideEffects: {
+            TargetProperties : [
+                'in/GROSS_AMOUNT'
+                // 'in/*'   // select whole line data
+            ],
+        }
         action boost() returns POs;
     };
     entity POItems as projection on transaction.poitems;
